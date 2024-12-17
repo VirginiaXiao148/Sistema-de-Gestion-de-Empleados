@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Time Tracking System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">TimeTracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="loginBtn">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <!-- Login Form -->
+        <div id="loginSection" class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Login</h2>
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard (Initially Hidden) -->
+        <div id="dashboardSection" class="row" style="display: none;">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Time Tracking Dashboard</h2>
+                        <div class="text-center mb-4">
+                            <h3 id="currentTime" class="display-4"></h3>
+                            <button id="clockInBtn" class="btn btn-success me-2">Clock In</button>
+                            <button id="clockOutBtn" class="btn btn-danger">Clock Out</button>
+                        </div>
+                        <div class="mt-4">
+                            <h4>Today's Activity</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Clock In</th>
+                                        <th>Clock Out</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activityLog">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Weekly Summary</h4>
+                        <div id="weeklyStats">
+                            <!-- Weekly statistics will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Employee Management Section -->
+<div id="employeeManagementSection" class="container mt-5" style="display: none;">
+    <h2>Employee Management</h2>
+    <button class="btn btn-primary mb-3" id="addEmployeeBtn">Add Employee</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="employeeTable">
+            <!-- Dynamic employee data -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Shift Scheduling Section -->
+<div id="shiftSchedulingSection" class="container mt-5" style="display: none;">
+    <h2>Shift Scheduling</h2>
+    <form id="shiftForm" class="mb-3">
+        <div class="row">
+            <div class="col">
+                <input type="text" id="employeeName" class="form-control" placeholder="Employee Name" required>
+            </div>
+            <div class="col">
+                <input type="date" id="shiftDate" class="form-control" required>
+            </div>
+            <div class="col">
+                <input type="time" id="shiftStart" class="form-control" required>
+            </div>
+            <div class="col">
+                <input type="time" id="shiftEnd" class="form-control" required>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-success">Add Shift</button>
+            </div>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Date</th>
+                <th>Shift Start</th>
+                <th>Shift End</th>
+            </tr>
+        </thead>
+        <tbody id="shiftTable">
+            <!-- Dynamic shift data -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Leave Management Section -->
+<div id="leaveManagementSection" class="container mt-5" style="display: none;">
+    <h2>Leave Management</h2>
+    <form id="leaveForm" class="mb-3">
+        <div class="row">
+            <div class="col">
+                <input type="text" id="leaveEmployeeName" class="form-control" placeholder="Employee Name" required>
+            </div>
+            <div class="col">
+                <input type="date" id="leaveStartDate" class="form-control" required>
+            </div>
+            <div class="col">
+                <input type="date" id="leaveEndDate" class="form-control" required>
+            </div>
+            <div class="col">
+                <select id="leaveType" class="form-control" required>
+                    <option value="Sick">Sick</option>
+                    <option value="Vacation">Vacation</option>
+                    <option value="Unpaid">Unpaid</option>
+                </select>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-warning">Add Leave</button>
+            </div>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody id="leaveTable">
+            <!-- Dynamic leave data -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Reporting Section -->
+<div id="reportingSection" class="container mt-5" style="display: none;">
+    <h2>Reporting Tools</h2>
+    <canvas id="reportChart" width="400" height="200"></canvas>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
